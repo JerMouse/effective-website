@@ -1,16 +1,16 @@
 <template>
-    <h1>
-        主页啦
-    </h1>
+    <div>
+        homepage
+        <router-link to="/teacher_team">teacher</router-link>
+    </div>
 </template>
 
 <script>
   export default {
     name: "Index",
     created() {
-    },
-    methods: {
-    },
+      console.log(this.$store.getters.avatar, this.$store.state)
+    }
   }
 </script>
 

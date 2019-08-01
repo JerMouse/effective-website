@@ -1,22 +1,21 @@
-import {getToken} from "../../utils/auth";
-import {login, logout, getInfo} from "../../api/user";
-import router from '@/router'
-import {Message} from "element-ui";
+import {getToken, setToken} from "../../utils/auth";
+import {getInfo, login} from "../../api/user";
+import {getSession, setSession} from "../../utils/session";
 
 const state = {
   userId: '',
   username: '',
   password: '',
-  avatar: '',
+  avatar: getSession('avatar') || '',
   token: getToken(),
-  roles: [],
+  role: [],
 };
 
 const mutations = {
   SET_USER_ID(state, userId) {
     state.userId = userId
   },
-  SET_NAME(state, username) {
+  SET_USER_NAME(state, username) {
     state.username = username
   },
   SET_PASSWORD(state, password) {
@@ -28,10 +27,10 @@ const mutations = {
   SET_TOKEN(state, token) {
     state.token = token
   },
-  SET_ROLE(state, roles) {
-    state.roles = roles
+  SET_ROLE(state, role) {
+    state.role = role
   }
-}
+};
 const actions = {
   login({commit}, userInfo) {
     return new Promise((resolve, reject) => {
@@ -39,6 +38,7 @@ const actions = {
         if (res.code === 20000) {
           const {data} = res;
           commit('SET_TOKEN', data.token);
+          setToken(data.token)
           resolve('登入成功');
         } else {
           reject(new Error(res.message))
@@ -50,24 +50,28 @@ const actions = {
   },
   getInfo({commit, state}) {
     return new Promise((resolve, reject) => {
-      // TODO 通过getter尝试获取
       getInfo(state.token).then(res => {
-        const {userId, username, password, avatar, roles} = res.data;
-        commit('SET_USER_ID', userId);
-        commit('SET_USERNAME', userId);
-        commit('SET_AVATAR', userId);
-        commit('SET_USER_ID', userId);
-        commit('SET_USER_ID', userId);
-      }).catch(err => {
-        reject(err)
+        if (res.code === 20000) {
+          const data = res.data;
+          const {userId, username, avatar, password, role} = data;
+          commit('SET_USER_ID', userId);
+          commit('SET_USER_NAME', username);
+          commit('SET_AVATAR', avatar);
+          setSession('avatar', avatar);
+          commit('SET_PASSWORD', password);
+          commit('SET_ROLE', role);
+          resolve(res.data)
+        } else {
+          reject(new Error(res.message))
+        }
       })
     })
   }
-}
+};
 
 export default {
   namespaced: true,
   state,
   mutations,
-  actions
+  actions,
 }

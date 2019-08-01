@@ -1,29 +1,22 @@
 <!--  -->
 <template>
-  <div>
-    <nav-bar :item="item"/>
-    <app-main />
-  </div>
+    <div style="height: inherit">
+        <!--    <nav-bar :item="item"/>-->
+        <transition name="fade">
+            <app-main/>
+        </transition>
+        <footer-page></footer-page>
+    </div>
 </template>
 
 <script>
-import { NavBar, AppMain } from "./components";
+  import {AppMain, FooterPage, NavBar} from "./components";
 
-export default {
-  data() {
-    return {};
-  },
-  props:{
-    item:{
-      firstName: 'hongjie',
-      lastName: 'Gan',
-      sex: 'man',
-      age: 20
+  export default {
+    components: {
+      NavBar,
+      FooterPage,
+      AppMain
     }
-  },
-  components: {
-    NavBar,
-    AppMain
-  }
-};
+  };
 </script>

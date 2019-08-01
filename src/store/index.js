@@ -1,6 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import getters from './getters'
+
 Vue.use(Vuex);
 
 // https://webpack.js.org/guides/dependency-management/#requirecontext
@@ -16,10 +17,12 @@ const modules = modulesFiles.keys().reduce((modules, modulePath) => {
   return modules
 }, {})
 
-export default new Vuex.Store({
+const store = new Vuex.Store({
   // 只能通过mutation或者dispatch修改state的状态
   // 不能通过state属性直接修改状态树
   strict: process.env.NODE_ENV !=='production',
   getters,
   modules
 });
+
+export default store;

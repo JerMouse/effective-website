@@ -1,7 +1,8 @@
 <template>
-    <h1>
+    <div>
         这里是学生提交作业的地方啊～～～
-    </h1>
+        <router-link to="/home">home</router-link>
+    </div>
 </template>
 
 <script>

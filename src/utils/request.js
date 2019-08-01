@@ -1,8 +1,7 @@
 import axios from "axios";
+import {getToken} from "./auth";
 
 // create an axios instance
-
-import {getToken} from "./auth";
 
 const service = axios.create({
   baseURL: process.env.VUE_APP_BASE_API, // url = baseUrl + requestUrl
@@ -15,13 +14,12 @@ service.interceptors.request.use(
   // config before request. like config header...
   // TODO: config header
   config => {
-    // config.headers['token'] = getToken();
-    // console.log(config);
+    config.headers['token'] = getToken();
     return config
   },
   // do something with request error
   error => {
-    // console.log(error);
+    if (process.env.NODE_ENV === 'development') console.log(error)
   }
 );
 

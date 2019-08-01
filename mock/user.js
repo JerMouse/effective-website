@@ -3,7 +3,7 @@ const tokens = {
     token: 'common-token'
   }, teacher: {
     token: 'teacher-token'
-  }, student: {
+  }, '123456': {
     token: 'student-token'
   }
 };
@@ -14,7 +14,7 @@ const users = {
     username:'123456',
     password:'123456',
     avatar:'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
-    roles:['student']
+    role: ['student']
   }
 };
 
@@ -24,6 +24,7 @@ export default [
     url: '/user/login',
     type: 'post',
     response: config => {
+      console.log(config.body)
       const { userId } = config.body;
       const token = tokens[userId];
       // mock error

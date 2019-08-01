@@ -4,6 +4,7 @@ const isDevelopment = process.env.NODE_ENV === "development";
 function resolve(dir) {
   return path.join(__dirname, dir);
 }
+
 const port = 8888;
 module.exports = {
   publicPath: "/",

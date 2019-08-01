@@ -9,6 +9,7 @@ import 'element-ui/lib/theme-chalk/index.css'
 import 'normalize.css'
 import './styles/border.css'
 import './styles/custom.scss'
+import './styles/transition.scss'
 import './permission'
 
 Vue.use(ElementUI);

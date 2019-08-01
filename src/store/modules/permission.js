@@ -1,13 +1,5 @@
-import {staticRoutes, asyncRoutes} from "../../router";
+import {asyncRoutes, staticRoutes} from "../../router";
 
-//
-function hasPermission(route, roles) {
-  if (route.meta && route.meta.roles) {
-    return roles.some(role => route.meta.roles.includes(role))
-  } else {
-    return false;
-  }
-}
 
 const state = {
   // 用户可访问的路由
@@ -24,12 +16,15 @@ const mutations = {
 };
 
 const actions = {
-  generateRoutes({commit}, roles) {
+  generateRoutes({commit}, role) {
     return new Promise((resolve, reject) => {
       // 权限路由
       let accessRoutes = [];
-      if (roles.includes('teacher')) {
-
+      if (role.indexOf('student') !== -1) {
+        accessRoutes = asyncRoutes.concat({
+          path: '*',
+          component: () => import('@/views/error/404.vue')
+        })
       } else {
 
       }

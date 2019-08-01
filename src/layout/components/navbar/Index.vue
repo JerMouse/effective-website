@@ -1,26 +1,25 @@
 <template>
     <div>
-        <el-scrollbar wrap-class="scrollbar-wrapper">
-            <el-menu>
-                <sidebar-item v-for="route in permission_routes"
-                              :key="route.path"
-                              :item="route"
-                              :base-path="route.path"/>
-            </el-menu>
-        </el-scrollbar>
+        <!--        <el-scrollbar wrap-class="scrollbar-wrapper">-->
+        <!--            <el-menu>-->
+        <!--                <navbar-item v-for="route in permission_routes"-->
+        <!--                              :key="route.path"-->
+        <!--                              :item="route"-->
+        <!--                              :base-path="route.path"/>-->
+        <!--            </el-menu>-->
+        <!--        </el-scrollbar>-->
     </div>
 </template>
 
 <script>
   import {mapGetters} from 'vuex'
-  import SidebarItem from './NavbarItems'
+  // import NavbarItem from './NavbarItem'
 
   export default {
-    components: {SidebarItem},
+    // components: {NavbarItem},
     computed: {
       ...mapGetters([
-        'permission_routes',
-        'sidebar'
+        'permission_routes'
       ]),
       activeMenu() {
         const route = this.$route;
@@ -31,9 +30,6 @@
         }
         return path
       }
-    },
-    created() {
-      console.log(this.permission_routes)
     }
   }
 </script>
