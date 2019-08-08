@@ -1,5 +1,16 @@
 <template>
-    <div class="login-container">
+    <div class="login-container" v-loading="loading"
+         element-loading-text="拼命加载中"
+         element-loading-spinner="el-icon-loading"
+         element-loading-background="rgba(0, 0, 0, 0.8)">
+        <el-page-header @back="homePage">
+            <template #title>
+                返回
+            </template>
+            <template #content>
+                主页
+            </template>
+        </el-page-header>
         <transition name="slide-up" appear>
             <el-form class="login-form" ref="loginForm" :model="loginForm">
                 <div class="title-container">
@@ -94,6 +105,7 @@
       },
       handleLogin() {
         this.loading = true;
+
         this.login(this.loginForm).then((suc) => {
           this.loading = false;
           this.$message({
@@ -111,6 +123,9 @@
         if (!validEmail(this.loginForm.userId)) {
           this.isValid = true
         }
+      },
+      homePage() {
+        this.$router.push('/')
       },
       ...mapActions(['login'])
     },

@@ -1,7 +1,6 @@
-<!--  -->
 <template>
-    <div style="height: inherit">
-        <!--    <nav-bar :item="item"/>-->
+    <div class="app-container">
+            <nav-bar />
         <transition name="fade">
             <app-main/>
         </transition>
@@ -20,3 +19,8 @@
     }
   };
 </script>
+<style lang="scss" scoped>
+    .app-container{
+        height: inherit
+    }
+</style>

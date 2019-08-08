@@ -1,35 +1,73 @@
 <template>
-    <div>
-        <!--        <el-scrollbar wrap-class="scrollbar-wrapper">-->
-        <!--            <el-menu>-->
-        <!--                <navbar-item v-for="route in permission_routes"-->
-        <!--                              :key="route.path"-->
-        <!--                              :item="route"-->
-        <!--                              :base-path="route.path"/>-->
-        <!--            </el-menu>-->
-        <!--        </el-scrollbar>-->
-    </div>
+    <el-menu class="nav-container" v-if="this.$route.meta.isShow" mode="horizontal" @select="handleSelect">
+        <el-menu-item v-for="navRoute of routes"  :key="navRoute.path" :index="navRoute.path">{{navRoute.title}}
+        </el-menu-item>
+    </el-menu>
 </template>
 
 <script>
   import {mapGetters} from 'vuex'
-  // import NavbarItem from './NavbarItem'
 
   export default {
-    // components: {NavbarItem},
+    data() {
+      return {
+        navPathList: []
+      }
+    },
     computed: {
       ...mapGetters([
         'permission_routes'
       ]),
-      activeMenu() {
-        const route = this.$route;
-        const {meta, path} = route;
-        // if set path, the sidebar will highlight the path you set
-        if (meta.activeMenu) {
-          return meta.activeMenu
+      routes() {
+        // all routes should be listed in the header(teacher,student)
+        const navList = ['home', 'introduction', 'teaching_resource', 'teacher_team', 'login', 'correct', '/404', '/homework']
+        // routes (title) that the role can access
+        let accessRoutesTitle = [];
+        console.log(this.permission_routes)
+        for (const route of this.permission_routes) {
+          // static routes
+          if (route.children && route.children.length > 0) {
+            for (const route of route.children) {
+              if (navList.indexOf(route.path) !== -1) {
+                const obj = Object.create({
+                  path: route.path,
+                  title: route.meta.name
+                })
+                accessRoutesTitle.push(obj)
+              }
+            }
+          }
+          // routes that add dynamically
+          else {
+            if (navList.indexOf(route.path) !== -1) {
+              const obj = Object.create({
+                path: route.path,
+                title: route.meta.name
+              });
+              accessRoutesTitle.push(obj)
+            }
+          }
         }
-        return path
+        console.log(accessRoutesTitle)
+        return accessRoutesTitle
+      }
+    },
+    methods: {
+      handleSelect(key, keyPath) {
+        console.log(key, keyPath)
       }
     }
   }
 </script>
+<style lang="scss" scoped>
+    img {
+        padding: 30px 10px;
+    }
+
+    .nav-container {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+
+    }
+</style>

@@ -11,7 +11,7 @@
         <div class="bullshit__oops">Warning!</div>
         <div class="bullshit__headline">{{ message }}</div>
         <div class="bullshit__info">请检查您输入的地址或者点击下面的按钮回到主页</div>
-        <router-link to="/" class="bullshit__return-home">回到主页</router-link>
+        <router-link to="/home" class="bullshit__return-home">回到主页</router-link>
       </div>
     </div>
   </div>

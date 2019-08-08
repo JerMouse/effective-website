@@ -13,42 +13,105 @@ export const staticRoutes = [
     component: Layout,
     redirect: '/home',
     children: [
-      // 这里配置app-main对应router-view的子路由
+      // 这里配置app-main路由出口
       {
         path: 'home',
-        component: Home
+        component: Home,
+        meta: {
+          name: '主页',
+          isNeededAuthorized: false,
+          isShow: true
+        }
       },
       {
         path: 'introduction',
-        component: () => import('@/views/introduction')
-      },
-      {
-        path: 'login',
-        component: ()=> import('@/views/login')
+        component: () => import('@/views/introduction'),
+        meta: {
+          name: '简介',
+          isNeededAuthorized: false,
+          isShow: true
+        }
       },
       {
         path: 'teacher_team',
-        component: () => import('@/views/teacher_team')
-      }, {
-        path: '401',
-        component: () => import('@/views/error/401.vue')
+        component: () => import('@/views/teacher_team'),
+        meta: {
+          name: '师资力量',
+          isNeededAuthorized: false,
+          isShow: true
+        }
       }, {
         path: 'forget_password',
-        component: () => import('@/views/forget_password')
+        component: () => import('@/views/forget_password'),
+        meta: {
+          name: '忘记密码',
+          isNeededAuthorized: false,
+          isShow: false
+        }
+      }, {
+        path: 'teaching_resource',
+        component: () => import('@/views/teaching_resource'),
+        meta: {
+          name: '教学资源',
+          isNeededAuthorized: false,
+          isShow: true
+        }
+      },
+      {
+        path: 'login',
+        component: () => import('@/views/login'),
+        meta: {
+          name: '登录',
+          isNeededAuthorized: false,
+          isShow: false
+        }
       }
     ]
-  }
+  }, {
+    path: '/401',
+    component: () => import('@/views/error/401.vue'),
+    meta: {
+      name: '权限不足',
+      isNeededAuthorized: false
+    }
+  }, {
+    path: '*',
+    component: () => import('@/views/error/404.vue'),
+    meta: {
+      name: '无此页面',
+      isNeededAuthorized: false,
+    }
+  },
 ];
 
-export const asyncRoutes = [
+export const studentRoutes = [
   {
     path: '/homework',
-    component: () => import('@/views/homework/index')
+    component: () => import('@/views/homework/index'),
+    meta: {
+      name: '作业',
+      isNeededAuthorized: true,
+      isShow: true
+    }
+  }
+]
+export const teacherRoutes = [
+  {
+    path: '/correct',
+    component: () => import('@/views/correct/index'),
+    meta: {
+      name: '批改作业',
+      isNeededAuthorized: true,
+      isShow: true
+    }
   }
 ]
 
+export const navbarRoutes = []
+
 
 const createRouter = () => new Router({
+  base: '/',
   // require service support
   mode: 'history',
   // 回到浏览器的顶端

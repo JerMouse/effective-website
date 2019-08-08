@@ -37,8 +37,9 @@ const actions = {
       login(userInfo).then((res) => {
         if (res.code === 20000) {
           const {data} = res;
-          commit('SET_TOKEN', data.token);
-          setToken(data.token)
+          console.log(res)
+          commit('SET_TOKEN', data);
+          setToken(data)
           resolve('登入成功');
         } else {
           reject(new Error(res.message))
