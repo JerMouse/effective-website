@@ -1,14 +1,13 @@
-import {getToken, setToken} from "../../utils/auth";
+import {getToken, removeToken, setToken} from "../../utils/auth";
 import {getInfo, login} from "../../api/user";
-import {getSession, setSession} from "../../utils/session";
 
 const state = {
   userId: '',
   username: '',
   password: '',
-  avatar: getSession('avatar') || '',
+  avatar: '',
   token: getToken(),
-  role: [],
+  role: '',
 };
 
 const mutations = {
@@ -29,6 +28,14 @@ const mutations = {
   },
   SET_ROLE(state, role) {
     state.role = role
+  },
+  LOGOUT(state) {
+    state.userId = ''
+    state.username = ''
+    state.password = ''
+    state.avatar = ''
+    state.role = ''
+    removeToken()
   }
 };
 const actions = {
@@ -37,7 +44,6 @@ const actions = {
       login(userInfo).then((res) => {
         if (res.code === 20000) {
           const {data} = res;
-          console.log(res)
           commit('SET_TOKEN', data);
           setToken(data)
           resolve('登入成功');
@@ -55,10 +61,10 @@ const actions = {
         if (res.code === 20000) {
           const data = res.data;
           const {userId, username, avatar, password, role} = data;
+
           commit('SET_USER_ID', userId);
           commit('SET_USER_NAME', username);
           commit('SET_AVATAR', avatar);
-          setSession('avatar', avatar);
           commit('SET_PASSWORD', password);
           commit('SET_ROLE', role);
           resolve(res.data)

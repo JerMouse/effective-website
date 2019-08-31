@@ -10,71 +10,126 @@ Vue.use(Router);
 export const staticRoutes = [
   {
     path: '/',
+    redirect: '/home'
+  },
+  {
+    path: '/home',
+    redirect: '/home/index',
     component: Layout,
-    redirect: '/home',
-    children: [
-      // 这里配置app-main路由出口
-      {
-        path: 'home',
-        component: Home,
-        meta: {
-          name: '主页',
-          isNeededAuthorized: false,
-          isShow: true
-        }
-      },
-      {
-        path: 'introduction',
-        component: () => import('@/views/introduction'),
-        meta: {
-          name: '简介',
-          isNeededAuthorized: false,
-          isShow: true
-        }
-      },
-      {
-        path: 'teacher_team',
-        component: () => import('@/views/teacher_team'),
-        meta: {
-          name: '师资力量',
-          isNeededAuthorized: false,
-          isShow: true
-        }
-      }, {
-        path: 'forget_password',
-        component: () => import('@/views/forget_password'),
-        meta: {
-          name: '忘记密码',
-          isNeededAuthorized: false,
-          isShow: false
-        }
-      }, {
-        path: 'teaching_resource',
-        component: () => import('@/views/teaching_resource'),
-        meta: {
-          name: '教学资源',
-          isNeededAuthorized: false,
-          isShow: true
-        }
-      },
-      {
-        path: 'login',
-        component: () => import('@/views/login'),
-        meta: {
-          name: '登录',
-          isNeededAuthorized: false,
-          isShow: false
-        }
+    children: [{
+      path: 'index',
+      component: Home,
+      meta: {
+        name: '主页',
+        isNeededAuthorized: false,
+        isShow: true
       }
-    ]
+    }],
+  },
+  {
+    path: '/introduction',
+    redirect: '/introduction/index',
+    component: Layout,
+    children: [{
+      path: 'index',
+      component: () => import('@/views/introduction'),
+      meta: {
+        name: '简介',
+        isNeededAuthorized: false,
+        isShow: true
+      }
+    }],
+  },
+  {
+    path: '/teacher_team',
+    redirect: '/teacher_team/index',
+    component: Layout,
+    children: [{
+      path: 'index',
+      component: () => import('@/views/teacher_team'),
+      meta: {
+        name: '简介',
+        isNeededAuthorized: false,
+        isShow: true
+      }
+    }],
+  },
+  {
+    path: '/teaching_resource',
+    redirect: '/teaching_resource/index',
+    component: Layout,
+    children: [{
+      path: 'index',
+      component: () => import('@/views/teaching_resource'),
+      meta: {
+        name: '教学资源',
+        isNeededAuthorized: false,
+        isShow: true
+      }
+    }],
+  },
+  {
+    path: '/login',
+      component: () => import('@/views/login'),
+      meta: {
+        name: '登录',
+        isNeededAuthorized: false,
+      }
+  },{
+    path: '/test',
+    component: () => import('@/views/test'),
+    meta: {
+      name: '登录',
+      isNeededAuthorized: false,
+    }
   }, {
+    path: '/change_pwd',
+    component: () => import('@/views/change_pwd'),
+    meta: {
+      name: '修改密码',
+      isNeededAuthorized: false,
+      isShow: false
+    }
+  }, {
+    path: '/logout',
+    component: Layout,
+    children: [{
+      path: '',
+      component: () => import('@/views/logout'),
+      meta: {
+        name: '退出',
+        isNeededAuthorized: false,
+        isShow: false
+      }
+    }],
+  },
+  {
+    path: '/forget_password',
+    component: () => import('@/views/forget_password'),
+    meta: {
+      name: '忘记密码',
+      isNeededAuthorized: false,
+      isShow: false
+    }
+  },
+  {
+    path: '/forum/index',
+    component: () => import('@/views/forum'),
+    meta: {
+      name: '忘记密码',
+      isNeededAuthorized: false,
+      isShow: false
+    }
+  },
+  {
     path: '/401',
     component: () => import('@/views/error/401.vue'),
     meta: {
       name: '权限不足',
       isNeededAuthorized: false
     }
-  }, {
+  },
+  {
     path: '*',
     component: () => import('@/views/error/404.vue'),
     meta: {
@@ -87,28 +142,38 @@ export const staticRoutes = [
 export const studentRoutes = [
   {
     path: '/homework',
-    component: () => import('@/views/homework/index'),
-    meta: {
-      name: '作业',
-      isNeededAuthorized: true,
-      isShow: true
-    }
+    redirect: '/homework/index',
+    component: Layout,
+    children: [{
+      path: 'index',
+      component: () => import('@/views/homework/index'), meta: {
+        name: '作业',
+        isNeededAuthorized: true,
+        isShow: true
+      }
+    }]
+
+
   }
 ]
+
 export const teacherRoutes = [
   {
     path: '/correct',
-    component: () => import('@/views/correct/index'),
-    meta: {
-      name: '批改作业',
-      isNeededAuthorized: true,
-      isShow: true
-    }
+    redirect: '/correct/index',
+    component: Layout,
+    children: [{
+      path: 'index',
+      component: () => import('@/views/correct/index'), meta: {
+        name: '批改',
+        isNeededAuthorized: true,
+        isShow: true
+      }
+    }]
+
+
   }
 ]
-
-export const navbarRoutes = []
-
 
 const createRouter = () => new Router({
   base: '/',

@@ -11,8 +11,11 @@ import './styles/border.css'
 import './styles/custom.scss'
 import './styles/transition.scss'
 import './permission'
+import './assets/iconfont/iconfont.css'
 
-Vue.use(ElementUI);
+Vue.use(ElementUI,{
+  size:'small'
+});
 Vue.config.productionTip = false;
 
 new Vue({

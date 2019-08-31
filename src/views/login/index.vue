@@ -1,8 +1,11 @@
 <template>
-    <div class="login-container" v-loading="loading"
+    <div class="login-container"
+         v-loading="loading"
          element-loading-text="拼命加载中"
          element-loading-spinner="el-icon-loading"
-         element-loading-background="rgba(0, 0, 0, 0.8)">
+         element-loading-background="rgba(0, 0, 0, 0.8)"
+         ref="loginContainer"
+    >
         <el-page-header @back="homePage">
             <template #title>
                 返回
@@ -69,8 +72,6 @@
                 </el-button>
             </el-form>
         </transition>
-
-
     </div>
 </template>
 
@@ -90,7 +91,8 @@
         loginRules: {},
         isCaps: false,
         isValid: false,
-        loading: false
+        loading: false,
+        height: ''
       }
     },
     methods: {
@@ -134,11 +136,9 @@
 
 <style lang="scss" scoped>
     .login-container {
-        height: 100%;
-        width: 100%;
-        overflow: hidden;
-        background-image: url("~@/assets/img/jpg/login.jpg");
-        background-size: contain;
+        height: inherit;
+        background-image: url('~@/assets/img/jpg/login.jpg');
+        background-size: 100%;
 
         .login-form {
             width: 520px;

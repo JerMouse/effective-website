@@ -1,11 +1,13 @@
 <template>
-    <div class="app-container">
+ <div>
             <nav-bar />
         <transition name="fade">
+            <keep-alive>
             <app-main/>
+            </keep-alive>
         </transition>
         <footer-page></footer-page>
-    </div>
+ </div>
 </template>
 
 <script>
@@ -19,8 +21,3 @@
     }
   };
 </script>
-<style lang="scss" scoped>
-    .app-container{
-        height: inherit
-    }
-</style>

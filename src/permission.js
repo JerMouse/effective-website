@@ -1,6 +1,5 @@
 import router from './router';
 import store from "./store";
-import 'nprogress/nprogress.css'
 import {getToken} from "./utils/auth";
 
 
@@ -9,7 +8,7 @@ router.beforeEach(async (to, from, next) => {
     const hasToken = getToken();
     if (hasToken) {
       // if have token , we get the role by token(no login)
-      if (store.getters.role.length > 0 && store.getters.role) {
+      if (store.getters.role) {
         //go ahead
         next()
       } else {

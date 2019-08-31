@@ -1,21 +1,23 @@
 const tokens = {
   's-17206119@stu.nchu.edu.cn':'17206119@stu.nchu.edu.cn',
-  't-17206116@stu.nchu.edu.cn':'17206119@stu.nchu.edu.cn',
+  't-17206116@stu.nchu.edu.cn':'17206116@stu.nchu.edu.cn',
 }
 const users = {
   '17206119@stu.nchu.edu.cn': {
+    userId:'17206119@stu.nchu.edu.cn',
     username:'EvanGan',
     password:'123456',
     avatar:'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
     token:'s-17206119@stu.nchu.edu.cn',
-    role: ['student']
+    role: 'student'
   },
   '17206116@stu.nchu.edu.cn': {
+    userId:'17206116@stu.nchu.edu.cn',
     username:'小贾',
     password:'123456789',
-    avatar:'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
+    avatar:'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png',
     token:'t-17206116@stu.nchu.edu.cn',
-    role: ['teacher']
+    role: 'teacher'
   }
 };
 

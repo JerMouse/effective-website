@@ -1,4 +1,4 @@
-import {studentRoutes, staticRoutes} from "../../router";
+import {studentRoutes, teacherRoutes,staticRoutes} from "../../router";
 
 
 const state = {
@@ -21,7 +21,7 @@ const actions = {
     return new Promise((resolve, reject) => {
       // 权限路由
       let accessRoutes = [];
-      if (role.indexOf('student') !== -1) {
+      if (role==='student') {
         accessRoutes = studentRoutes.concat({
           path: '*',
           component: () => import('@/views/error/404.vue'),
@@ -31,7 +31,14 @@ const actions = {
           }
         })
       } else {
-
+        accessRoutes = teacherRoutes.concat({
+          path: '*',
+          component: () => import('@/views/error/404.vue'),
+          meta:{
+            name: '没有此网页',
+            isNeededAuthorized: false
+          }
+        })
       }
       commit('SET_ROUTES', accessRoutes);
       // permission.js获取
