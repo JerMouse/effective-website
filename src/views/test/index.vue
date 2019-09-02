@@ -1,17 +1,19 @@
 <template>
     <div ref="scrollTarget" class="test-scroll"  style="height: 100px;overflow: hidden">
-        <div style="height: 10000px; width: 100%">
-            scoll to see the backtop button
-            <el-backtop target=".test-scroll">
-                <span>test_up_text</span>
-            </el-backtop>
-        </div>
+
+        <model-obj src="/tree.obj"></model-obj>
     </div>
 </template>
 
 <script>
+  import {ModelObj} from "@/components/model";
+
+
   export default {
-    name: "index"
+    name: "index",
+    components:{
+      ModelObj
+    }
   }
 </script>
 
